@@ -1,3 +1,5 @@
+import sys
+
 MAN = 0
 WOLF = 1
 GOAT = 2
@@ -42,7 +44,28 @@ def check_state(t, state, past_state):
 
 
 def search(t, src_side, dest_side):
-    pass
+    src_state = [i for i in src_side[t][:]]
+    dest_state = [i for i in dest_side[t][:]]
+
+    for index, state in enumerate(src_state):
+        if state == 1:
+            new_src_state = src_state[:]
+            new_dest_state = dest_state[:]
+            new_src_state[index] = new_src_state[0] = 0
+            new_dest_state[index] = new_dest_state[0] = 1
+            if check_state(t, new_src_state, src_side):
+                if t % 2 == 0:
+                    left_side[t + 1][:] = new_src_state
+                    right_side[t + 1][:] = new_dest_state
+                else:
+                    left_side[t + 1][:] = new_dest_state
+                    right_side[t + 1][:] = new_src_state
+
+                if right_side[t + 1][:] == [0, 0, 0, 0]:
+                    print_ans(t + 1)
+                    sys.exit()
+                else:
+                    search(t + 1, dest_side, src_side)
 
 
 def main():
