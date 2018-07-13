@@ -28,17 +28,21 @@ def print_ans(t):
         print('%d : %s %s' % (i, print_state(left_side[t]), print_state(right_side[t])))
 
 
-
-def check_state():
+def check_state(t, state, past_state):
     pass
 
 
-def search():
+def search(t, src_side, dest_side):
     pass
 
 
 def main():
-    pass
+    global left_side, right_side
+    left_side = [[-1 for i in range(4)] for j in range(SEARCH_MAX)]
+    right_side = [[-1 for i in range(4)] for j in range(SEARCH_MAX)]
+    left_side[0][:] = [1, 1, 1, 1]
+    right_side[0][:] = [0, 0, 0, 0]
+    search(0, left_side, right_side)
 
 
 if __name__ == '__main__':
