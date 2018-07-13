@@ -23,8 +23,10 @@ def print_state(state):
     return '[%s]' % out
 
 
-def print_ans():
-    pass
+def print_ans(t):
+    for i in range(t):
+        print('%d : %s %s' % (i, print_state(left_side[t]), print_state(right_side[t])))
+
 
 
 def check_state():
