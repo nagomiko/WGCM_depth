@@ -29,7 +29,16 @@ def print_ans(t):
 
 
 def check_state(t, state, past_state):
-    pass
+    if state[1] == 1 and state[2] == 1:
+        return 0
+    elif state[2] == 1 and state[3] == 1:
+        return 0
+
+    for i in t:
+        if state == past_state[t][:]:
+            return 0
+
+    return 1
 
 
 def search(t, src_side, dest_side):
