@@ -36,7 +36,7 @@ def check_state(t, state, past_state):
     elif state[2] == 1 and state[3] == 1:
         return 0
 
-    for i in t:
+    for i in range(t):
         if state == past_state[t][:]:
             return 0
 
