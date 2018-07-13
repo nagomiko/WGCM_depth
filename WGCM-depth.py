@@ -7,8 +7,20 @@ left_side = [[]]
 right_side = [[]]
 
 
-def print_state():
-    pass
+def print_state(state):
+    out = ''
+    for index, state in enumerate(state):
+        if state == 1:
+            if index == 0:
+                out += ' 男 '
+            elif index == 1:
+                out += ' 狼 '
+            elif index == 2:
+                out += ' 山羊 '
+            elif index == 3:
+                out += ' キャベツ '
+
+    return '[%s]' % out
 
 
 def print_ans():
