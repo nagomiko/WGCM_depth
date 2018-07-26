@@ -27,17 +27,17 @@ def print_state(state):
 
 def print_ans(t):
     for i in range(t):
-        print('%d : %s %s' % (i, print_state(left_side[t]), print_state(right_side[t])))
+        print('%d : %s %s' % (i, print_state(left_side[i]), print_state(right_side[i])))
 
 
 def check_state(t, state, past_state):
-    if state[1] == 1 and state[2] == 1:
+    if state[1] == 1 and state[2] == 1 and state[0] == 0:
         return 0
-    elif state[2] == 1 and state[3] == 1:
+    elif state[2] == 1 and state[3] == 1 and state[0] == 0:
         return 0
 
-    for i in range(t):
-        if state == past_state[t][:]:
+    for i in range(t + 1):
+        if state == past_state[i][:]:
             return 0
 
     return 1
@@ -53,6 +53,7 @@ def search(t, src_side, dest_side):
             new_dest_state = dest_state[:]
             new_src_state[index] = new_src_state[0] = 0
             new_dest_state[index] = new_dest_state[0] = 1
+
             if check_state(t, new_src_state, src_side):
                 if t % 2 == 0:
                     left_side[t + 1][:] = new_src_state
@@ -61,17 +62,21 @@ def search(t, src_side, dest_side):
                     left_side[t + 1][:] = new_dest_state
                     right_side[t + 1][:] = new_src_state
 
-                if right_side[t + 1][:] == [0, 0, 0, 0]:
-                    print_ans(t + 1)
+                if left_side[t + 1][:] == [0, 0, 0, 0]:
+                    print_ans(t + 2)
                     sys.exit()
                 else:
-                    search(t + 1, dest_side, src_side)
+                    if t == SEARCH_MAX:
+                        print('探索回数が20回になりました')
+                        sys.exit()
+                    else:
+                        search(t + 1, dest_side, src_side)
 
 
 def main():
     global left_side, right_side
-    left_side = [[-1 for i in range(4)] for j in range(SEARCH_MAX)]
-    right_side = [[-1 for i in range(4)] for j in range(SEARCH_MAX)]
+    left_side = [[-1 for _ in range(4)] for _ in range(SEARCH_MAX)]
+    right_side = [[-1 for _ in range(4)] for _ in range(SEARCH_MAX)]
     left_side[0][:] = [1, 1, 1, 1]
     right_side[0][:] = [0, 0, 0, 0]
     search(0, left_side, right_side)
