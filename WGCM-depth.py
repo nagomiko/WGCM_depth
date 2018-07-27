@@ -25,9 +25,19 @@ def print_state(state):
     return '[%s]' % out
 
 
+def print_states(state):
+    out = ''
+    ans = [' 男 ', ' 狼 ', ' 山羊 ', ' キャベツ ']
+    for index, state in enumerate(state):
+        if state == 1:
+            out += ans[index]
+
+    return '[%s]' % out
+
+
 def print_ans(t):
     for i in range(t):
-        print('%d : %s %s' % (i, print_state(left_side[i]), print_state(right_side[i])))
+        print('%d : %s %s' % (i, print_states(left_side[i]), print_states(right_side[i])))
 
 
 def check_state(t, state, past_state):
